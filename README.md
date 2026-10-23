@@ -39,10 +39,10 @@ coverage report -m
 ```
 
 ## Organisation du projet
-
-## Équipe
-- Membre 1 : Amina Rouzana
-- Membre 2 : Lina Aknioune
+README.md : présentation du projet
+DECISIONS.md : décisions techniques
+JOURNAL_IA.md : utilisation de l'IA
+requirements.txt : dépendances Python
 
 ## Référence
 Notebook Kaggle sur la prédiction du prix des maisons (voir le lien ci-dessus).
