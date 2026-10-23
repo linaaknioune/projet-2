@@ -24,6 +24,25 @@ https://www.kaggle.com/code/michaelfumery/exercice-pr-diction-de-prix-de-maison/
 - coverage
 
 ## Installation
-
 ```bash
 pip install -r requirements.txt
+```
+## Exécution des tests 
+```bash
+pytest
+```
+
+## Couverture des tests
+```bash
+coverage run -m pytest
+coverage report -m
+```
+
+## Organisation du projet
+
+## Équipe
+- Membre 1 : Amina Rouzana
+- Membre 2 : Lina Aknioune
+
+## Référence
+Notebook Kaggle sur la prédiction du prix des maisons (voir le lien ci-dessus).
