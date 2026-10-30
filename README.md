@@ -1,10 +1,7 @@
 # Prédiction du prix des maisons - projet 2
 
 ## Description
-Ce projet vise à construire un modèle de machine learning capable de prédire le prix d'une maison à partir de caractéristiques
-immobilières.
-Le projet s'inspire de l'exercice Kaggle :
-https://www.kaggle.com/code/michaelfumery/exercice-pr-diction-de-prix-de-maison/notebook
+Ce projet vise à construire un modèle de machine learning capable de prédire le prix d'une maison à l’aide de multiples modèles de régression. Le projet analyse les caractéristiques des maisons telles que la superficie, les chambres, les salles de bains et l’emplacement afin de prédire les valeurs du marché à l’aide d’algorithmes de régression linéaire et d’augmentation du gradient.
 
 ## Objectifs
 - Explorer et comprendre les données.
@@ -27,7 +24,6 @@ https://www.kaggle.com/code/michaelfumery/exercice-pr-diction-de-prix-de-maison/
 ```bash
 pip install -r requirements.txt
 python src/entrainer.py          
-modeles/metadonnees.json
 ```
 ## Exécution des tests 
 ```bash
@@ -60,4 +56,5 @@ coverage report -m
 | `tests/test_modele.py` | Tests du modèle |
 
 ## Référence
-Notebook Kaggle sur la prédiction du prix des maisons (voir le lien ci-dessus).
+Notebook Kaggle sur la prédiction du prix des maisons.
+Liens : https://www.kaggle.com/code/michaelfumery/exercice-pr-diction-de-prix-de-maison/notebook
