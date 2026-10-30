@@ -26,6 +26,8 @@ https://www.kaggle.com/code/michaelfumery/exercice-pr-diction-de-prix-de-maison/
 ## Installation
 ```bash
 pip install -r requirements.txt
+python src/entrainer.py          
+modeles/metadonnees.json
 ```
 ## Exécution des tests 
 ```bash
