@@ -45,8 +45,8 @@ coverage report -m
 | `JOURNAL_IA.md` |Journal d'utilisation de l'intelligence artificielle |
 | `requirements.txt` | Liste des dépendances Python |
 | `.github/workflows/tests.yml` | Lance pytest à chaque push |
-| `train.csv` | Jeu de données (CSV) |
-| `modeles/` | Modèle sauvegardé et métadonnées JSON |
+| `Donnees` | Jeu de données (CSV) |
+| `Modeles/` | Modèle sauvegardé et métadonnées JSON |
 | `src/donnees.py` | Lecture, nettoyage, classes de variables |
 | `src/modele.py` | Entraînement, évaluation, prédiction |
 | `src/exceptions.py` | Exceptions personnalisées |
