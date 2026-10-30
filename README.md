@@ -39,10 +39,23 @@ coverage report -m
 ```
 
 ## Organisation du projet
-README.md : présentation du projet
-DECISIONS.md : décisions techniques
-JOURNAL_IA.md : utilisation de l'IA
-requirements.txt : dépendances Python
+
+| Nom du fichier | Description |
+|---|---|
+| `README.md` | Documentation du projet |
+| `DECISIONS.md` | Documentation des décisions prises |
+| `JOURNAL_IA.md` |Journal d'utilisation de l'intelligence artificielle |
+| `requirements.txt` | Liste des dépendances Python |
+| `.github/workflows/tests.yml` | Lance pytest à chaque push |
+| `donnees/` | Jeu de données (CSV) |
+| `modeles/` | Modèle sauvegardé et métadonnées JSON |
+| `src/donnees.py` | Lecture, nettoyage, classes de variables |
+| `src/modele.py` | Entraînement, évaluation, prédiction |
+| `src/exceptions.py` | Exceptions personnalisées |
+| `src/interface.py` | Interface graphique |
+| `src/main.py` | Point d'entrée |
+| `tests/test_donnees.py` | Tests des données |
+| `tests/test_modele.py` | Tests du modèle |
 
 ## Référence
 Notebook Kaggle sur la prédiction du prix des maisons (voir le lien ci-dessus).
