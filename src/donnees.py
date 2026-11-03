@@ -22,10 +22,10 @@ class JeuDeDonnees:
   @property
   def df(self) -> pd.DataFrame:
     """DataFrame chargé (lève DonneeInvalideError si pas encore chargé)."""
-    if self._df = None:
+    if self._df is None:
       raise DonneeInvalideError("Appelez charger() avant d'utiliser les données.")
     return self._df
-  def charger(self) > "JeuDeDonnees":
+  def charger(self) -> "JeuDeDonnees":
     """Lit le CSV. Échoue si le fichier manque ou si une colonne requise manque."""
     if not os.path.exists(self._chemin):
       raise DonneeInvalideError(f"Fichier introuvable : {self._chemin}")
