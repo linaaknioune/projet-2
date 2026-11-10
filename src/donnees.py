@@ -1,4 +1,3 @@
-
 """Lecture, vérification, nettoyage et séparation du jeu de données."""
 
 import os
