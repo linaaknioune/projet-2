@@ -17,7 +17,6 @@ from donnees import COLONNES_CATEGORIELLES, COLONNES_NUMERIQUES, GRAINE
 from exceptions import DonneeInvalideError, ModeleIndisponibleError
 from outils import chronometre
 
-
 # Métadonnées JSON
 
 def ecrire_metadonnees(metadonnees: dict, chemin: str) -> None:
