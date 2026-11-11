@@ -9,4 +9,4 @@
 | Cible et métrique | RMSE ; MAE ; R² | **Cible `SalePrice`, régression. Métrique principale : RMSE en dollars.** MAE et R² rapportés en complément| _à remplir_ |
 | Modèle | Régression linéaire ; Forêt aléatoire ; K plus proches voisins | **Régression linéaire et forêt aléatoire comparées par validation croisée (5 blocs) sur l'entraînement seulement ; le meilleur est retenu.** | _à remplir_ |
 | Séparation | a faire | a faire | _à remplir_ |
-| Technologie d'interface | a faire | a decider | _à remplir_ |
+| Technologie d'interface | Tkinter, PyQt ou PySide, Streamlit, Gradio | Tkinter | _à remplir_ |
