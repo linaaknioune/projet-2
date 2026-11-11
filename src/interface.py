@@ -7,9 +7,12 @@ from tkinter import ttk, messagebox
 from pathlib import Path
 from datetime import datetime
 
+import numpy as np
 import pandas as pd
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+from exceptions import DonneeInvalideError, ModeleIndisponibleError
 
 
 # --------------------------------------------------
@@ -30,7 +33,7 @@ VERT = "#16A36A"
 BORDURE = "#E2E8F0"
 
 
-def lancer(modele, metadata):
+def lancer(modele, metadata: dict) -> None:
     """Crée et lance l'application Tkinter."""
 
     numeriques = metadata["numeriques"]
@@ -316,7 +319,8 @@ def lancer(modele, metadata):
     # ENREGISTREMENT DE L'HISTORIQUE
     # --------------------------------------------------
 
-    def enregistrer_historique(donnees, prix):
+    def enregistrer_historique(donnees: dict, prix: float) -> None:
+        """Ajoute une ligne (date, saisies, prix) au fichier CSV de l'historique."""
 
         colonnes = [
             "date",
@@ -356,7 +360,8 @@ def lancer(modele, metadata):
     # FONCTION DE PRÉDICTION
     # --------------------------------------------------
 
-    def predire():
+    def predire() -> None:
+        """Valide les saisies, prédit le prix et l'affiche (message clair si erreur)."""
 
         donnees = {}
 
@@ -442,7 +447,7 @@ def lancer(modele, metadata):
                 str(erreur)
             )
 
-        except Exception as erreur:
+        except (DonneeInvalideError, ModeleIndisponibleError, OSError) as erreur:
             messagebox.showerror(
                 "Erreur",
                 f"Une erreur est survenue : {erreur}"
@@ -472,10 +477,14 @@ def lancer(modele, metadata):
     )
     bouton_predire.pack(side="left", expand=True, fill="x", padx=5)
 
-    def reinitialiser():
+    def reinitialiser() -> None:
+        """Vide les champs et remet l'affichage à zéro."""
 
         for champ in champs.values():
-            champ.delete(0, tk.END)
+            if isinstance(champ, ttk.Combobox):
+                champ.set("")   # delete() ne marche pas sur une liste en lecture seule
+            else:
+                champ.delete(0, tk.END)
 
         resultat.config(text="— $")
 
@@ -533,8 +542,6 @@ def lancer(modele, metadata):
         noms = preparation.get_feature_names_out()
         coefficients = regression.coef_
 
-        import numpy as np
-
         indices = np.argsort(
             np.abs(coefficients)
         )[-10:]
@@ -554,7 +561,7 @@ def lancer(modele, metadata):
         )
 
         graphique.set_title(
-            "Les 10 coefficients les plus importants",
+            "Les 10 plus grands coefficients du modèle (variables non standardisées)",
             fontsize=11
         )
 
@@ -587,7 +594,7 @@ def lancer(modele, metadata):
             expand=True
         )
 
-    except Exception as erreur:
+    except (KeyError, AttributeError) as erreur:
 
         tk.Label(
             carte_graphique,
@@ -600,7 +607,8 @@ def lancer(modele, metadata):
     # HISTORIQUE
     # --------------------------------------------------
 
-    def consulter_historique():
+    def consulter_historique() -> None:
+        """Ouvre une fenêtre avec le tableau des prédictions enregistrées."""
 
         if not FICHIER_HISTORIQUE.exists():
             messagebox.showinfo(
