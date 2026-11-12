@@ -1,5 +1,9 @@
 import sys
+import pytest
+import pandas as pd
+import numpy as np
 from pathlib import Path
+
 
 # Ajouter le dossier src au début du chemin de recherche
 RACINE = Path(__file__).resolve().parent
