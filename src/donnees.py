@@ -80,27 +80,27 @@ class JeuDeDonnees:
     def __repr__(self) -> str:
       etat = "non chargé" if self._df is None else f"{len(self._df)} lignes"
       return f"JeuDeDonnees({self._chemin!r}, {etat})"
-    def separer(df: pd.DataFrame, taille_test: float = 0.2, graine: int = GRAINE
+def separer(df: pd.DataFrame, taille_test: float = 0.2, graine: int = GRAINE
               ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
-      """Sépare en (X_train, X_test, y_train, y_test) avec une graine fixée."""
-      if not 0 < taille_test < 1:
-          raise DonneeInvalideError("taille_test doit être entre 0 et 1 (exclus).")
-      X = df[COLONNES_NUMERIQUES + COLONNES_CATEGORIELLES]
-      y = df[CIBLE]
-      return train_test_split(X, y, test_size=taille_test, random_state=graine)
-    def decrire_variables(X_train: pd.DataFrame) -> Dict[str, dict]:
-      """Décrit les variables d'entrée pour construire l'interface.
-      Numériques : type, min, max (observés sur l'entraînement).
-      Catégorielles : liste triée des valeurs possibles.
-      """
-      numeriques = {}
-      for col in COLONNES_NUMERIQUES:
-          serie = X_train[col].dropna()
-          est_entier = bool((serie == serie.round()).all())
-          numeriques[col] = {"type": "int" if est_entier else "float",
-                             "min": float(serie.min()), "max": float(serie.max())}
-      categorielles: Dict[str, List[str]] = {
-          col: sorted(X_train[col].dropna().astype(str).unique().tolist())
-          for col in COLONNES_CATEGORIELLES}
-      return {"numeriques": numeriques, "categorielles": categorielles}
+  """Sépare en (X_train, X_test, y_train, y_test) avec une graine fixée."""
+  if not 0 < taille_test < 1:
+    raise DonneeInvalideError("taille_test doit être entre 0 et 1 (exclus).")
+  X = df[COLONNES_NUMERIQUES + COLONNES_CATEGORIELLES]
+  y = df[CIBLE]
+  return train_test_split(X, y, test_size=taille_test, random_state=graine)
+def decrire_variables(X_train: pd.DataFrame) -> Dict[str, dict]:
+  """Décrit les variables d'entrée pour construire l'interface.
+  Numériques : type, min, max (observés sur l'entraînement).
+  Catégorielles : liste triée des valeurs possibles.
+  """
+  numeriques = {}
+  for col in COLONNES_NUMERIQUES:
+      serie = X_train[col].dropna()
+      est_entier = bool((serie == serie.round()).all())
+      numeriques[col] = {"type": "int" if est_entier else "float",
+                          "min": float(serie.min()), "max": float(serie.max())}
+  categorielles: Dict[str, List[str]] = {
+      col: sorted(X_train[col].dropna().astype(str).unique().tolist())
+      for col in COLONNES_CATEGORIELLES}
+  return {"numeriques": numeriques, "categorielles": categorielles}
 
