@@ -50,3 +50,35 @@ def test_decrire_variables(df_synthetique):
     assert desc["numeriques"]["OverallQual"]["type"] == "int"
     assert desc["numeriques"]["OverallQual"]["min"] == X["OverallQual"].min()
     assert desc["categorielles"]["CentralAir"] == ["N", "Y"]
+def test_nettoyer_compte_les_doublons(csv_synthetique):
+    jeu = JeuDeDonnees(csv_synthetique).charger()
+    jeu._df = pd.concat([jeu.df, jeu.df.iloc[[0, 1]]], ignore_index=True)
+    rapport = jeu.nettoyer()
+    assert rapport["doublons"] == 2
+    assert len(jeu) == 300
+def test_nettoyer_garde_une_surface_manquante(csv_synthetique):
+    jeu = JeuDeDonnees(csv_synthetique).charger()
+    jeu._df.loc[4, "GrLivArea"] = None
+    rapport = jeu.nettoyer()
+    assert rapport["surface_aberrante"] == 0
+    assert len(jeu) == 300
+def test_valeurs_manquantes(csv_synthetique):
+    jeu = JeuDeDonnees(csv_synthetique).charger()
+    jeu._df.loc[0:29, "LotArea"] = None   # 30 sur 300 = 10 %
+    serie = jeu.valeurs_manquantes()
+    assert serie.index[0] == "LotArea"
+    assert serie.iloc[0] == pytest.approx(10.0)
+def test_verifier_criteres(csv_synthetique):
+    criteres = JeuDeDonnees(csv_synthetique).charger().verifier_criteres()
+    assert criteres["lignes"] == 300
+    assert criteres["lignes_ok (500-50000)"] is False   # 300 < 500
+    assert criteres["colonnes_entree_retenues"] == 10
+def test_repr_avant_et_apres_chargement(csv_synthetique):
+    jeu = JeuDeDonnees(csv_synthetique)
+    assert "non chargé" in repr(jeu)
+    jeu.charger()
+    assert "300 lignes" in repr(jeu)
+def test_decrire_variables_type_float(df_synthetique):
+    X = df_synthetique[COLONNES_NUMERIQUES + COLONNES_CATEGORIELLES]
+    desc = decrire_variables(X)
+    assert desc["numeriques"]["GrLivArea"]["type"] == "float"
