@@ -23,7 +23,7 @@ Ce projet vise à construire un modèle de machine learning capable de prédire 
 ## Installation
 ```bash
 pip install -r requirements.txt
-python src/entrainer.py          
+python src/main.py         
 ```
 ## Exécution des tests 
 ```bash
