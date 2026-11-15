@@ -8,4 +8,11 @@ Aide obtenue : ChatGPT nous a expliqué les principales étapes du projet, notam
 
 Vérification et décision : Nous avons utilisé ces explications pour organiser notre travail et déterminer l'ordre dans lequel développer les différents fichiers. Les consignes officielles du projet restent notre référence.
 
-Entrée 2 — 
+Entrée 2 — Squelette
+
+Outil utilisé : Claude
+
+Demande : Génération du squelette du code des différents modules.
+
+Aide obtenue : Claude nous a permis d'avancer dans notre code, en effet il a généré le code avec simple consigne, nous permettre de coder de notre coter et de trouver les erreurs. 
+
