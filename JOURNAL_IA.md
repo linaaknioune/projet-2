@@ -16,3 +16,8 @@ Demande : Génération du squelette du code des différents modules.
 
 Aide obtenue : Claude nous a permis d'avancer dans notre code, en effet il a généré le code avec simple consigne, nous permettre de coder de notre coter et de trouver les erreurs. 
 
+Entrée 3 - Correction et ajout de test
+
+Demande : Vérification des tests et ajouts des tests manquants.
+
+Aide obtenue : L'IA a remarqué le manque de 4 tests importants, nous les avons alors étudier et tester sur VS code puis on les a ajouté à notre code.
