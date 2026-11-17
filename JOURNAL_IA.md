@@ -14,13 +14,9 @@ Outil utilisé : Claude
 
 Demande : Génération du squelette du code des différents modules.
 
-Aide obtenue : Claude nous a permis d'avancer dans notre code, en effet il a généré le code avec simple consigne, nous permettre de coder de notre coter et de trouver les erreurs. 
+Aide obtenue : Claude a contribué à la réalisation du projet en générant une première structure de code pour les différents modules à développer. Cette structure nous a permis de mieux organiser l'architecture de l'application et d'obtenir une base de travail cohérente. Grâce à ce squelette, nous avons pu nous concentrer davantage sur l'implémentation des fonctionnalités spécifiques à notre projet plutôt que sur la mise en place de l'organisation initiale du code.
 
-Entrée 3 - Correction et ajout de test
-
-Demande : Vérification des tests et ajouts des tests manquants.
-
-Aide obtenue : L'IA a remarqué le manque de 4 tests importants, nous les avons alors étudier et tester sur VS code puis on les a ajouté à notre code.
+De plus, les exemples fournis par Claude nous ont aidés à comprendre la logique de certains modules et à identifier plus rapidement les erreurs présentes dans notre implémentation. Cet outil a donc servi de point de départ pour accélérer le développement, tout en nous laissant la responsabilité de compléter, adapter et valider le code selon les besoins réels du projet.
 
 Entrée 3 — Aide à la création et à la correction des tests
 
@@ -46,4 +42,26 @@ Vérification faite : Nous avons comparé le contenu proposé avec l'énoncé et
 
 Décision : Nous avons adapté le README à notre projet et conservé la structure répondant aux consignes.
 
+Entrée 5 – Aide à l'utilisation de Tkinter et à la réalisation de l'interface graphique
 
+Outil utilisé : Claude
+
+Demande : Aide à l'utilisation de la bibliothèque Tkinter et à la conception de l'interface graphique du projet.
+
+Aide obtenue : Claude nous a aidés à comprendre le fonctionnement de la bibliothèque Tkinter et à développer l'interface graphique de notre application. L'outil a fourni des explications sur l'utilisation des différents composants graphiques, tels que les fenêtres, les boutons, les champs de saisie, les cadres et les étiquettes. Il a également généré des exemples de code permettant d'organiser l'interface et de relier les éléments graphiques aux fonctionnalités du programme.
+
+Vérification faite : Nous avons testé les exemples et les solutions proposées dans notre environnement de développement afin de vérifier leur compatibilité avec notre projet. Chaque élément de l'interface a été adapté à nos besoins et validé par des essais fonctionnels pour s'assurer que les interactions avec l'utilisateur produisaient les résultats attendus.
+
+Décision : Nous avons conservé les explications et les portions de code qui répondaient aux exigences du projet, puis nous les avons adaptées et intégrées à notre propre interface graphique.
+
+Entrée 6 – Lecture et explication du fichier CSV
+
+Outil utilisé : Claude
+
+Demande : Obtenir de l'aide pour comprendre la structure du fichier CSV, les variables qu'il contient et leur signification dans le cadre du projet.
+
+Aide obtenue : Claude nous a aidés à analyser et à interpréter le contenu du fichier CSV utilisé dans le projet. L'outil a expliqué le rôle des différentes colonnes, la nature des données présentes ainsi que les relations possibles entre les variables. Cette assistance nous a permis de mieux comprendre le jeu de données, de sélectionner les variables pertinentes pour notre modèle et de vérifier la cohérence des informations avant leur traitement.
+
+Vérification faite : Nous avons comparé les explications fournies avec le contenu réel du fichier CSV en examinant les données directement dans notre environnement de développement. Nous avons également réalisé des tests de lecture et d'affichage afin de confirmer que les données étaient correctement interprétées par notre programme.
+
+Décision : Nous avons retenu les explications qui facilitaient la compréhension du jeu de données et nous les avons utilisées pour guider l'analyse et le traitement des données dans notre projet.
