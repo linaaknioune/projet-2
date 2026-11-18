@@ -116,7 +116,7 @@ class Modele:
 
         return float(resultat[0])
 
-        def contributions(self, caracteristiques) -> dict:
+    def contributions(self, caracteristiques) -> dict:
         """Effet de chaque variable sur le prix, par rapport à une maison de référence.
         La maison de référence utilise la médiane (variables numériques) et la
         catégorie la plus fréquente (variables catégorielles) de l'entraînement.
