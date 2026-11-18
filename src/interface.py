@@ -311,6 +311,7 @@ def lancer(modele, metadata):
             if not math.isfinite(prix):
                 raise ValueError("Le modèle a produit un résultat invalide.")
             animer_prix(prix)
+            dessiner_graphique(donnees)
             texte_resultat.config(text="✓  Estimation calculée à "f"{datetime.now().strftime('%H:%M')}.",fg="#4ADE80")
             enregistrer_historique(donnees, prix)
             rafraichir_historique()
@@ -325,6 +326,7 @@ def lancer(modele, metadata):
             else:
                 champ.delete(0, tk.END)
         jeton_animation["id"] += 1
+        dessiner_graphique()   
         resultat.config(text="— $")
         texte_resultat.config(text="Remplissez le formulaire pour commencer.",fg=GRIS_CLAIR)
     BoutonArrondi(zone_boutons, "✦   Estimer le prix", predire).grid(row=0, column=0, sticky="ew", padx=(0, 8))
