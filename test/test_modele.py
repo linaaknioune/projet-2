@@ -180,4 +180,25 @@ def test_repr(modele_entraine):
     assert repr(Modele()) == 'Modele(non chargé)'
     assert repr(modele_entraine) == 'Modele(chargé)'
 
+def test_contributions_somme_egale_ecart_avec_reference(modele_entraine, donnees_exemple):
+    """La somme des effets = prix prédit - prix de la maison de référence."""
+    X, _ = donnees_exemple
+    maison = X.iloc[[3]]
+    effets = modele_entraine.contributions(maison)
+    assert set(effets) == set(COLONNES_NUMERIQUES + COLONNES_CATEGORIELLES)
+    prep = modele_entraine._pipeline.named_steps["preparation"]
+    ref = dict(zip(COLONNES_NUMERIQUES, prep.named_transformers_["num"].statistics_))
+    ref.update(zip(COLONNES_CATEGORIELLES,
+                   prep.named_transformers_["cat"].named_steps["imputation"].statistics_))
+    ecart = modele_entraine.predire(maison) - modele_entraine.predire(pd.DataFrame([ref]))
+    assert sum(effets.values()) == pytest.approx(ecart)
 
+
+def test_contributions_change_selon_la_maison(modele_entraine, donnees_exemple):
+    X, _ = donnees_exemple
+    assert modele_entraine.contributions(X.iloc[[0]]) != modele_entraine.contributions(X.iloc[[3]])
+
+
+def test_contributions_modele_non_entraine():
+    with pytest.raises(DonneeInvalideError):
+        Modele().contributions(pd.DataFrame())
