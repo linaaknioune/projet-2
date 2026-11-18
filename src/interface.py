@@ -334,43 +334,42 @@ def lancer(modele, metadata):
     # GRAPHIQUE
     carte_graphique = creer_carte(contenu, padx=24, pady=20)
     carte_graphique.pack(fill="x", pady=(24, 0))
-    tk.Label(carte_graphique, text="Analyse des variables du modèle",bg=BLANC, fg=MARINE, font=(POLICE, 13, "bold")).pack(anchor="w")
-    tk.Label(carte_graphique,text="Les 10 coefficients ayant le plus d'influence ""(bleu : hausse du prix, rouge : baisse).",bg=BLANC, fg=GRIS, font=(POLICE, 9)).pack(anchor="w", pady=(2, 10))
+    tk.Label(carte_graphique, text="Analyse de la prédiction", bg=BLANC, fg=MARINE, font=(POLICE, 13, "bold")).pack(anchor="w")
+    tk.Label(carte_graphique, text="Effet de chaque variable sur le prix, par rapport à une maison de référence "
+             "(médiane / catégorie la plus fréquente). Bleu : hausse, rouge : baisse.",
+             bg=BLANC, fg=GRIS, font=(POLICE, 9), wraplength=800, justify="left").pack(anchor="w", pady=(2, 10))
 
-    try:
-        pipeline = modele._pipeline
-        preparation = pipeline.named_steps["preparation"]
-        regression = pipeline.named_steps["regression"]
-        noms = preparation.get_feature_names_out()
-        coefficients = np.ravel(regression.coef_)
-        indices = np.argsort(np.abs(coefficients))[-10:]
-        etiquettes = [
-            noms[i].replace("num__", "").replace("cat__", "")
-            for i in indices
-        ]
-        valeurs = [coefficients[i] for i in indices]
-        couleurs = [BLEU if v >= 0 else ROUGE for v in valeurs]
+    figure = Figure(figsize=(9, 4), dpi=100, facecolor=BLANC)
+    graphique = figure.add_subplot(111)
+    graphique_canvas = FigureCanvasTkAgg(figure, master=carte_graphique)
+    graphique_canvas.get_tk_widget().pack(fill="both", expand=True)
 
-        figure = Figure(figsize=(9, 4), dpi=100, facecolor=BLANC)
-        graphique = figure.add_subplot(111)
-        graphique.barh(etiquettes, valeurs, color=couleurs, height=0.65)
-        graphique.axvline(x=0, linewidth=0.8, color=GRIS)
-        graphique.set_xlabel("Valeur du coefficient", fontsize=9,color=GRIS)
-        graphique.tick_params(labelsize=8, colors=GRIS, length=0)
-        graphique.grid(axis="x", alpha=0.2)
-        graphique.set_axisbelow(True)
-
-        for cote in ("top", "right", "left"):
-            graphique.spines[cote].set_visible(False)
-        graphique.spines["bottom"].set_color(BORDURE)
+    def dessiner_graphique(donnees=None):
+        graphique.clear()
+        if donnees is None:
+            graphique.text(0.5, 0.5, "Estimez un prix pour voir l'effet de chaque variable.",
+                           ha="center", va="center", color=GRIS, fontsize=10,
+                           transform=graphique.transAxes)
+            graphique.set_axis_off()
+        else:
+            graphique.set_axis_on()
+            effets = modele.contributions(pd.DataFrame([donnees]))
+            ordre = sorted(effets, key=lambda nom: abs(effets[nom]))
+            etiquettes = [f"{nom} = {donnees[nom]}" for nom in ordre]
+            valeurs = [effets[nom] for nom in ordre]
+            couleurs = [BLEU if v >= 0 else ROUGE for v in valeurs]
+            graphique.barh(etiquettes, valeurs, color=couleurs, height=0.65)
+            graphique.axvline(x=0, linewidth=0.8, color=GRIS)
+            graphique.set_xlabel("Effet sur le prix ($)", fontsize=9, color=GRIS)
+            graphique.tick_params(labelsize=8, colors=GRIS, length=0)
+            graphique.grid(axis="x", alpha=0.2)
+            graphique.set_axisbelow(True)
+            for cote in ("top", "right", "left"):
+                graphique.spines[cote].set_visible(False)
+            graphique.spines["bottom"].set_color(BORDURE)
         figure.tight_layout()
-        graphique_canvas = FigureCanvasTkAgg(figure, master=carte_graphique)
         graphique_canvas.draw()
-        graphique_canvas.get_tk_widget().pack(fill="both", expand=True)
-
-    except Exception as erreur:
-        tk.Label(carte_graphique, text=f"Graphique indisponible : {erreur}",bg=BLANC, fg=GRIS).pack()
-    rafraichir_historique()
+    dessiner_graphique()
 
     # Espace en bas de page
     tk.Frame(contenu, bg=FOND, height=20).pack()
