@@ -4,6 +4,7 @@ import os
 import json
 import joblib
 import numpy as np
+import panda as pd
 
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -115,6 +116,43 @@ class Modele:
 
         return float(resultat[0])
 
+        def contributions(self, caracteristiques) -> dict:
+        """Effet de chaque variable sur le prix, par rapport à une maison de référence.
+        La maison de référence utilise la médiane (variables numériques) et la
+        catégorie la plus fréquente (variables catégorielles) de l'entraînement.
+        """
+
+        if self._pipeline is None:
+            raise DonneeInvalideError(
+                "Le modèle n'est pas entraîné."
+            )
+
+        preparation = self._pipeline.named_steps["preparation"]
+        coefficients = np.ravel(self._pipeline.named_steps["regression"].coef_)
+        noms = preparation.get_feature_names_out()
+
+        statistiques_num = preparation.named_transformers_["num"].statistics_
+        statistiques_cat = (preparation.named_transformers_["cat"]
+                            .named_steps["imputation"].statistics_)
+        reference = {}
+        reference.update(zip(COLONNES_NUMERIQUES, statistiques_num))
+        reference.update(zip(COLONNES_CATEGORIELLES, statistiques_cat))
+        reference = pd.DataFrame([reference])
+
+        def vers_matrice(df):
+            matrice = preparation.transform(df)
+            return matrice.toarray() if hasattr(matrice, "toarray") else matrice
+
+        difference = (vers_matrice(caracteristiques)[0]
+                      - vers_matrice(reference)[0]) * coefficients
+
+        resultat = {}
+        for colonne in COLONNES_NUMERIQUES + COLONNES_CATEGORIELLES:
+            resultat[colonne] = float(sum(
+                valeur for nom, valeur in zip(noms, difference)
+                if nom == f"num__{colonne}" or nom.startswith(f"cat__{colonne}_")
+            ))
+        return resultat
     def sauvegarder(self, chemin: str, metadata: dict) -> None:
         """Sauvegarde le modèle et ses métadonnées."""
 
@@ -140,21 +178,16 @@ class Modele:
 
     def charger(self, chemin: str) -> None:
         """Charge un modèle déjà entraîné."""
-
         if not os.path.isfile(chemin):
             raise DonneeInvalideError(
                 f"Modèle introuvable : {chemin}"
             )
-
         self._pipeline = joblib.load(chemin)
 
     def __repr__(self) -> str:
         """Retourne une représentation du modèle."""
-
         if self._pipeline is None:
             etat = "non chargé"
         else:
             etat = "chargé"
-
         return f"Modele({etat})"
-
