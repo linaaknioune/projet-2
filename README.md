@@ -329,9 +329,9 @@ Ils permettent de vérifier le fonctionnement des principales fonctions de trait
 
 ### Résultats des tests
 
-**41 tests ont été exécutés avec succès.**
+**44 tests ont été exécutés avec succès.**
 
-    41 passed in 5.81s
+    44 passed in 5.81s
 
 Les tests portent notamment sur :
 
