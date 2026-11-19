@@ -26,7 +26,7 @@ Demande : Aide pour écrire, compléter et corriger les tests automatisés des f
 
 Aide obtenue : ChatGPT nous a proposé des tests pour vérifier le chargement et le nettoyage des données, l'entraînement du modèle, les prédictions et la gestion des erreurs. Il nous a également aidés à comprendre et à corriger certaines erreurs rencontrées pendant les tests.
 
-Vérification faite : Nous avons exécuté les tests avec pytest dans VS Code et corrigé les problèmes rencontrés. Les 41 tests ont finalement été exécutés avec succès.
+Vérification faite : Nous avons exécuté les tests avec pytest dans VS Code et corrigé les problèmes rencontrés. Les 44 tests ont finalement été exécutés avec succès.
 
 Décision : Nous avons conservé les tests qui fonctionnaient et qui correspondaient aux exigences du projet.
 
